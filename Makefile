@@ -12,8 +12,11 @@ OBJ = $(patsubst src/%.c, src/%.o, $(SRC))      # Convert .c files to .o files
 TARGET = build/rksh
 
 # Build Rule
-$(TARGET): $(OBJ)
+$(TARGET): $(OBJ) | build
 	$(CC) $(CFLAGS) $(OBJ) -o $(TARGET)
+
+build:
+	mkdir -p build
 
 # Compile .c files into .o files
 %.o: %.c
