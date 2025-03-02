@@ -1,6 +1,6 @@
 # rksh
 
-**rksh** is a simple Unix shell implemented in C, inspired by the [lsh](https://github.com/brenns10/lsh) project. This project serves as an educational tool to understand the fundamentals of shell development, including command parsing and execution.
+**rksh** is a simple Unix shell implemented in C, inspired by the [lsh](https://github.com/brenns10/lsh) project. This project serves as an educational tool to understand the fundamentals of shell development, including system calls, command parsing and execution.
 
 ## Features
 
@@ -39,7 +39,6 @@
 ## Usage
 
 - **Executing Commands**: Type any valid Unix command and press Enter.
-- **Changing Directory**: Use `cd <directory>`.
 - **Help**: Type `help` to display built-in commands.
 - **Exit**: Type `exit` to quit the shell.
 
@@ -49,4 +48,4 @@ This project is inspired by Stephen Brennan's [Write a Shell in C](https://brenn
 
 ## License
 
-This project is licensed under the Apache License 2.0.
+This project is licensed under the [Apache License 2.0](https://github.com/RohanKaran/rksh/blob/main/LICENSE).
