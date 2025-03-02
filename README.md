@@ -7,6 +7,7 @@
 - **Command Execution**: Executes system commands with arguments.
 - **Built-in Commands**: Supports `cd`, `help`, and `exit` commands.
 - **Command Parsing**: Handles parsing of user input into commands and arguments. Supports quoting (double quoting) and backslash escaping.
+- **Interactive Editing**: Allows command-line corrections using the backspace key.
 
 ## Getting Started
 
