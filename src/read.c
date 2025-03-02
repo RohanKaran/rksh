@@ -21,6 +21,14 @@ char *rksh_read_lines(void) {
         } else if (c == EOF) {
             clearerr(stdin);
             continue;
+        } else if (c == 127 || c == 8) {
+            // Handle backspace (127 = DEL, 8 = BS)
+            if (position > 0) {
+                position--;
+                printf("\b \b");
+                fflush(stdout);
+            }
+            continue;
         } else if (c == '\n') {
             buffer[position] = '\0';
             return buffer;

@@ -30,8 +30,11 @@ int rksh_cd(char **args) {
 }
 
 int rksh_help(char **args) {
+    if (args[1] != NULL) {
+        printf("Use \"man %s\" for information.\n\n", args[1]);
+    }
     int i;
-    printf("Rohan Karan's RKSH: https://github.com/RohanKaran/rksh\n");
+    printf(":) Rohan Karan's RKSH: https://github.com/RohanKaran/rksh\n");
     printf("Type program names and arguments, and hit enter.\n");
     printf("The following are built in:\n");
     for (i = 0; i < rksh_num_builtins(); i++) {
