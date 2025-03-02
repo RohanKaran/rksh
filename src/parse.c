@@ -5,9 +5,8 @@ char **rksh_parse_line(char *line) {
     int position;
     char **tokens;
     int i;
-    char *start;
-    int length;
     char *token;
+    int token_pos;
 
     buffer_size = RKSH_TOKEN_BUFFER_SIZE;
     position = 0;
@@ -21,28 +20,41 @@ char **rksh_parse_line(char *line) {
 
     while (line[i] != '\0') {
         while (isspace(line[i])) i++;  // Skip whitespace
-
         if (line[i] == '\0') break;
 
+        token = malloc(strlen(&line[i]) + 1);  // Max possible size
+        if (!token) {
+            fprintf(stderr, "rksh: allocation error\n");
+            exit(EXIT_FAILURE);
+        }
+        token_pos = 0;
+
         if (line[i] == '"') {
-            // Quoted token
-            i++;  // Skip opening quote
-            start = &line[i];
-            while (line[i] != '\0' && line[i] != '"') i++;
+            i++;  // Skip opening double quote
+            while (line[i] != '\0') {
+                if (line[i] == '\\') {
+                    i++;
+                    if (line[i] == '"' || line[i] == '\\') {
+                        token[token_pos++] = line[i++];
+                    } else if (line[i] != '\0') {
+                        token[token_pos++] = '\\';
+                        token[token_pos++] = line[i++];
+                    }
+                } else if (line[i] == '"') {
+                    i++;  // Closing double quote
+                    break;
+                } else {
+                    token[token_pos++] = line[i++];
+                }
+            }
         } else {
-            // Normal token
-            start = &line[i];
-            while (line[i] != '\0' && !isspace(line[i])) i++;
+            while (line[i] != '\0' && !isspace(line[i])) {
+                token[token_pos++] = line[i++];
+            }
         }
 
-        length = &line[i] - start;
-        token = malloc(length + 1);
-        strncpy(token, start, length);
-        token[length] = '\0';
-
+        token[token_pos] = '\0';
         tokens[position++] = token;
-
-        if (line[i] == '"') i++;  // Skip closing quote
 
         if (position >= buffer_size) {
             buffer_size += RKSH_TOKEN_BUFFER_SIZE;
